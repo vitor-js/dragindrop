@@ -1,17 +1,10 @@
 import React, { useState,useEffect, useContext } from 'react';
 
-import BoardContext from '../Board/context'
-
 import { Container,Modal,Header,Body,InputTitle, InputText,AreaColor,SelectColor,Color, Button,ErrorContainer} from './styles';
 import { MdClose } from 'react-icons/md';
 
-function ModalAddCard({onClose = () =>{}, data}) {
+function ModalAddCard({onClose = () =>{},createdCard}) {
 
-  const {addCard} = useContext(BoardContext)
-
-useEffect(()=>{
-  console.log(data)
-},[])
 
   const [selectColor, setSelectColor] = useState([
     true,
@@ -29,7 +22,7 @@ useEffect(()=>{
   const [isError, setisError] = useState(false)
 
 
-  const onSubmit = () => {
+  const onSubmit = async() => {
     if(textIsEmpty.titulo.length <= 0 || textIsEmpty.description.length <= 0 ) {
       setisError(true)
       return
@@ -41,7 +34,8 @@ useEffect(()=>{
       description:textIsEmpty.description,
       color:arrayColor[found]
     }
-    addCard(newCard)
+    createdCard(newCard)
+    onClose()
   }
 
   const changeColor = (props) => {
