@@ -24,10 +24,14 @@ export default function Board() {
     }))
   }
 
+  function addCard(card, list) {
+    console.log(card,'asdasdsadasd')
+  }
+
   return (
     <>
     <Header/>
-    <BoardContext.Provider value={{ lists, move }}>
+    <BoardContext.Provider value={{ lists, move ,addCard}}>
       <Container>
         {lists.map((list, index) => <List key={list.title} index={index} data={list} />)}
       </Container>

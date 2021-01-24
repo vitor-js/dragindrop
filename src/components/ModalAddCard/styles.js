@@ -38,7 +38,7 @@ export const Body = styled.div`
   flex-direction:column;
 
   label{
-     margin-top:20px;
+     margin-top:15px;
   }
 `
 export const InputTitle = styled.input`
@@ -49,10 +49,10 @@ export const InputTitle = styled.input`
    border-radius:2px;
    transition: ease all .2s;
    padding:10px;
+   border-radius:5px;
 
    &:focus{
         border-bottom:solid 3px #7159c1;
-        border-radius:2px;
         background-color:rgba(230,236,245,0.9);
    }
 `
@@ -65,10 +65,10 @@ export const InputText = styled.textarea`
    transition: ease all .2s;
    padding:10px;
    max-width:100%;
+   border-radius:5px;
 
    &:focus{
         border-bottom:solid 3px #7159c1;
-        border-radius:2px;
         background-color:rgba(230,236,245,0.9);
    }
 `
@@ -114,5 +114,19 @@ export const Button = styled.input`
       background-color:#7159c1d1;
       cursor: pointer;
    }
+`
+export const ErrorContainer = styled.div`
+   display:flex;
+   margin: 5px 5px;
+   padding:5px 10px;
+   height:40px;
+   border-radius:5px;
+   transition: ease all .3s;
+   align-items:center;
+   justify-content:flex-start;
+   color: #721c24;
+   background-color: #f8d7da;
+   border-color: #f5c6cb;
+   cursor: pointer;
 `
 

@@ -13,7 +13,7 @@ export default function List({ data, index: listIndex }) {
   
   return (
     <>
-    {isModalVisible ? <ModalAddCard onClose={()=>setIsModalVisible(false)} /> : null}
+    {isModalVisible ? <ModalAddCard onClose={()=>setIsModalVisible(false)} data={data} /> : null}
   
     <Container done={data.done}>
       <header>

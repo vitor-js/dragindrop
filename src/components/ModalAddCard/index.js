@@ -1,10 +1,17 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 
-import { Container,Modal,Header,Body,InputTitle, InputText,AreaColor,SelectColor,Color, Button} from './styles';
+import BoardContext from '../Board/context'
+
+import { Container,Modal,Header,Body,InputTitle, InputText,AreaColor,SelectColor,Color, Button,ErrorContainer} from './styles';
 import { MdClose } from 'react-icons/md';
 
-function ModalAddCard({onClose = () =>{}}) {
+function ModalAddCard({onClose = () =>{}, data}) {
 
+  const {addCard} = useContext(BoardContext)
+
+useEffect(()=>{
+  console.log(data)
+},[])
 
   const [selectColor, setSelectColor] = useState([
     true,
@@ -14,6 +21,28 @@ function ModalAddCard({onClose = () =>{}}) {
     false
   ])
 
+  const [textIsEmpty , setTextIsEmpty] = useState({
+    titulo:'',
+    description:''
+  })
+
+  const [isError, setisError] = useState(false)
+
+
+  const onSubmit = () => {
+    if(textIsEmpty.titulo.length <= 0 || textIsEmpty.description.length <= 0 ) {
+      setisError(true)
+      return
+    }
+    const found = selectColor.findIndex((index) => index === true );
+    const arrayColor = ['#7159c1','#54e1f7','#ed54f7','#f75481', '#f75454']
+    const newCard = {
+      titulo:textIsEmpty.titulo,
+      description:textIsEmpty.description,
+      color:arrayColor[found]
+    }
+    addCard(newCard)
+  }
 
   const changeColor = (props) => {
     let newChangeColor = [false,
@@ -28,7 +57,7 @@ function ModalAddCard({onClose = () =>{}}) {
 
  const handleOutSideClick = (e) => {
     if(e.target.id === 'container') onClose()
- }
+  }
 
 
   return (
@@ -38,21 +67,27 @@ function ModalAddCard({onClose = () =>{}}) {
                 <h3 style={{color:'#fff', fontWeight:500}} >
                   Cadastrar uma tarefa
                 </h3>
-                <MdClose size={24} color="#FFF" onClick={()=>onClose()} />
+                <MdClose style={{cursor:'pointer'}} size={24} color="#FFF" onClick={()=>onClose()} />
               </Header>
 
               <Body>
-      
+                {isError ? 
+                      <ErrorContainer onClick={()=> setisError(false)} >
+                        <text>* Nehum campo pode ficar vazio</text>
+                      </ErrorContainer> : 
+                      null
+                    }
+
                     <label>
                       Título:
                     </label>
-                    <InputTitle type="text" name="name" />
-
+                    <InputTitle type="text" name="name" value={textIsEmpty.titulo} onChange={(e)=>{setTextIsEmpty({...textIsEmpty,titulo:e.target.value})}} />
+                    
                     <label>
                       Descrição:
                     </label>
-                    <InputText rows="10" cols="20" type="text" name="name"/>
-
+                    <InputText rows="10" cols="20" type="text" name="name" value={textIsEmpty.description} onChange={(e)=>{setTextIsEmpty({...textIsEmpty,description:e.target.value})}}/>
+                    
                     <label>
                       Change Color:
                     </label>
@@ -79,7 +114,7 @@ function ModalAddCard({onClose = () =>{}}) {
                         </SelectColor>
                     </AreaColor> 
 
-                    <Button type='submit' />
+                    <Button type='submit' onClick={onSubmit} />
     
               </Body>
           </Modal>
