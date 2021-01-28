@@ -44,3 +44,19 @@ export const Label = styled.span`
   display: inline-block;
   background: ${props => props.color};
 `;
+
+export const Footer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+
+    div {
+      opacity:0.2;
+      transition: ease all .3s;
+    }
+    &:hover div {
+      opacity:1;
+    }
+`

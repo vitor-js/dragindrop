@@ -3,7 +3,7 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import BoardContext from '../Board/context';
 
-import { Container, Label } from './styles';
+import { Container, Label,Footer } from './styles';
 
 export default function Card({ data, index, listIndex }) {
   const ref = useRef();
@@ -52,6 +52,8 @@ export default function Card({ data, index, listIndex }) {
 
   dragRef(dropRef(ref));
 
+
+
   return (
     <>
         <Container ref={ref} isDragging={isDragging} >
@@ -59,7 +61,10 @@ export default function Card({ data, index, listIndex }) {
             {data.labels.map(label => <Label key={label} color={label} />)}
           </header>
           <p>{data.content}</p>
+          <Footer>
           { data.user && <img src={data.user} alt=""/> }
+          
+          </Footer>
         </Container>
     </>
   );
